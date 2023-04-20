@@ -46,7 +46,7 @@ const days = [
 />
       </section>
       <section className="schedule">
-     --
+
       </section>
     </main>
   );
