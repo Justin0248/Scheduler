@@ -13,6 +13,7 @@ import Show from "../src/components/Appointment/Show.js";
 import Confirm from "../src/components/Appointment/Confirm.js";
 import Status from "../src/components/Appointment/Status.js";
 import Error from "../src/components/Appointment/Error.js";
+import Form from "../src/components/Appointment/Form.js";
 
 import "index.scss";
 0
@@ -159,3 +160,15 @@ onCancel={action('onCancel')}
 .add('Error', () => (<Error 
   message='Could not delete appointment'
   onClose={action('onClose')}/>))
+  .add('Edit', () => (<Form
+  student='Justin Nguyen'
+  interviewer={3}
+  interviewers={interviewers}
+  onSave={action('onSave')}
+  onCancel={action('onCancel')}
+  />))
+  .add('Create', () => (<Form
+  interviewers={interviewers}
+  onSave={action('onSave')}
+  onCancel={action('onCancel')}
+  />))
