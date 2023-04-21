@@ -15,14 +15,13 @@ export default function InterviewerListItem(props) {
         'interviewers__item--clickable': props.clickable
     })
     return (
-        <l1 onClick ={() => props.setInterviewer(props.name)} 
-         className={nameClass}>
+        <l1 className={nameClass} onClick ={props.setInterviewer}>
          <img
             className="interviewers__item-image"
             src={props.avatar}
             alt={props.name}
   />
-           {selected}
+           {props.selected && props.name}
         </l1>
     )
 }

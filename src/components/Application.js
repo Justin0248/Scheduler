@@ -34,9 +34,9 @@ const days = [
 />
 <hr className="sidebar__separator sidebar--centered" />
 <DayList
- days={days}
-  day={day} 
-  setDay={setDay} 
+days={days}
+value={day} 
+onChange={setDay} 
   />
 <nav className="sidebar__menu"></nav>
 <img
