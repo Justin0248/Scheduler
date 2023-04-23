@@ -1,68 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import DayList from "./DayList";
-import DayListItem from "./DayListItem";
-import Button from "./Button";
 import Appointment from './Appointment/index'
-
+import getAppointmentsForDay from './helpers/selectors'
+// import DayListItem from "./DayListItem";
+// import Button from "./Button";
 import "components/Application.scss";
 
 export default function Application(props) {
-  const [day, setDay] = useState('Monday');
-  const appointments = {
-    "1": {
-      id: 1,
-      time: "12pm",
-    },
-    "2": {
-      id: 2,
-      time: "1pm",
-      interview: {
-        student: "Lydia Miller-Jones",
-        interviewer:{
-          id: 3,
-          name: "Sylvia Palmer",
-          avatar: "https://i.imgur.com/LpaY82x.png",
-        }
-      }
-    },
-    "3": {
-      id: 3,
-      time: "2pm",
-    },
-    "4": {
-      id: 4,
-      time: "3pm",
-      interview: {
-        student: "Archie Andrews",
-        interviewer:{
-          id: 4,
-          name: "Cohana Roy",
-          avatar: "https://i.imgur.com/FK8V841.jpg",
-        }
-      }
-    },
-    "5": {
-      id: 5,
-      time: "4pm",
-    }
-  };
-const days = [
-    {
-      id: 1,
-      name: "Monday",
-      spots: 2,
-    },
-    {
-      id: 2,
-      name: "Tuesday",
-      spots: 5,
-    },
-    {
-      id: 3,
-      name: "Wednesday",
-      spots: 0,
-    },
-  ];
+  const [state, setState] = useState({
+    day: "Monday",
+    days: [],
+    appointments: {}
+  });
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
+  const setDay = day => setState({ ...state, day });
+  useEffect(() => {
+Promise.all([
+  axios.get('/api/days'),
+  axios.get('/api/appointments'),
+  axios.get('/api/interviewers')
+]).then((all) => {
+  const [days, appointments, interviewers] = all;
+
+  setState(prev => ({ ...prev, days: days.data, appointments: appointments.data, interviewers: interviewers.data }));
+});
+}, [])
+
+
   return (
     <main className="layout">
       <section className="sidebar">
@@ -73,9 +38,10 @@ const days = [
 />
 <hr className="sidebar__separator sidebar--centered" />
 <DayList
-days={days}
-value={day} 
-onChange={setDay} 
+days={state.days}
+day={state.day} 
+setDay={setDay}
+
   />
 <nav className="sidebar__menu"></nav>
 <img
@@ -85,7 +51,7 @@ onChange={setDay}
 />
       </section>
       <section className="schedule" >
-     {Object.values(appointments).map((appointment) => (
+     {dailyAppointments.map((appointment) => (
      <Appointment 
   key={appointment.id} 
   {...appointment} 
