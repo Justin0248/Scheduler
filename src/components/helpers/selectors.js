@@ -8,3 +8,18 @@ appointmentId => state.appointments[appointmentId]
     );
 return filteredApppointments;
 }
+
+export default function getInterview(state, interview) {
+    if (!interview) {
+        return null;
+    }
+const interviews = {
+    student: interview.student,
+    interviewer: {
+        id: state.interviewers[interview.interviewer].id,
+        name: state.interviewers[interview.interviewer].name,
+        avatar: state.interviewers[interview.interviewer].avatar,
+    }
+}
+return interviews
+}
