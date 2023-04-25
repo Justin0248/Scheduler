@@ -1,4 +1,4 @@
-export default function getAppointmentsForDay(state, day) {
+export function getAppointmentsForDay(state, day) {
 const filteredDays = state.days.filter(days => days.name === day);
 if (filteredDays.length === 0) {
     return [];
@@ -9,7 +9,7 @@ appointmentId => state.appointments[appointmentId]
 return filteredApppointments;
 }
 
-export default function getInterview(state, interview) {
+export function getInterview(state, interview) {
     if (!interview) {
         return null;
     }

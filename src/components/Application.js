@@ -51,15 +51,13 @@ setDay={setDay}
   alt="Lighthouse Labs"
 />
       </section>
-      {/* <section className="schedule" >
-     {appointments.map((appointment) => (
-      const interview = getInterview(state, appointment.interview)
-     <Appointment 
-  key={appointment.id} 
-  {...appointment} 
-/>))}
-     <Appointment key="last" time="5pm" />
-      </section> */}
+      <section className="schedule">
+  {appointments.map((appointment) => {
+    const interview = getInterview(state, appointment.interview);
+    return <Appointment key={appointment.id} {...appointment} />;
+  })}
+  <Appointment key="last" time="5pm" />
+</section>
     </main>
   );
 }
