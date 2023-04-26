@@ -12,7 +12,7 @@ setStudent('');
 }
 const cancel = function () {
 reset();
-props.cancel();
+props.onCancel();
 }
 
     return (
