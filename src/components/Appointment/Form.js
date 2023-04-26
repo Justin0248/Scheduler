@@ -21,7 +21,7 @@ props.onCancel();
     <form autoComplete="off">
       <input
         className="appointment__create-input text--semi-bold"
-        name="name"
+        name={student}
         type="text"
         placeholder="Enter Student Name"
         onChange={(event) => setStudent(event.target.value)}
@@ -37,7 +37,7 @@ props.onCancel();
   <section className="appointment__card-right">
     <section className="appointment__actions">
       <Button danger onClick={cancel}>Cancel</Button>
-      <Button confirm onClick={props.onSave}>Save</Button>
+      <Button confirm onClick={() => {props.onSave(student, interviewer);}}>Save</Button>
     </section>
   </section>
 </main>

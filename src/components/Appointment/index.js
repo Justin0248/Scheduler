@@ -19,9 +19,8 @@ function save(name, interviewer) {
       student: name,
       interviewer
     };
-    if (props.bookInterview(props.id, interview)) {
-        transition(SHOW)
-    }
+ props.bookInterview(props.id, interview)
+transition(SHOW)
   }
 
  return (
@@ -31,11 +30,13 @@ function save(name, interviewer) {
         {mode === SHOW && (
         <Show
             student={props.interview.student}   
-            interview={getInterview(props.interview.interviewer)}
             interviewers={props.interview.interviewer}
         />
     )}
-      {mode === CREATE && <Form interviewers={props.interviewers} onCancel={back} onSave={save}/>}
+      {mode === CREATE && <Form 
+        interviewers={props.interviewers}
+        onCancel={back} 
+        onSave={save}/>}
     </article>
      )
 }
