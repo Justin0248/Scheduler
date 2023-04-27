@@ -3,7 +3,6 @@ import axios from 'axios';
 import DayList from "./DayList";
 import Appointment from './Appointment/index'
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from './helpers/selectors';
-import useVisualMode from '../hooks/useVisualMode'
 // import DayListItem from "./DayListItem";
 // import Button from "./Button";
 import "components/Application.scss";
@@ -27,11 +26,10 @@ Promise.all([
   axios.get('/api/interviewers')
 ]).then((all) => {
   const [days, appointments, interviewers] = all;
-  console.log(interviewers.data)
   setState(prev => ({ ...prev, days: days.data, appointments: appointments.data, interviewers: interviewers.data }));
 });
 }, [])
-function bookInterview(id, interview) {
+const bookInterview = function(id, interview) {
   const appointment = {
     ...state.appointments[id],
     interview: { ...interview }
@@ -40,13 +38,27 @@ function bookInterview(id, interview) {
     ...state.appointments,
     [id]: appointment
   };
-  setState({
-    ...state,
-    appointments
-  });
-  console.log(interview)
-};
-
+  return axios.put(`/api/appointments/${id}`, { interview })
+      .then(() => {
+        const newAppointment = { ...state, appointments };
+        setState(newAppointment);
+      })
+  };
+  const removeInterview = function(id)  {
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    return axios.delete(`/api/appointments/${id}`)
+        .then(() => {
+          const newAppointment = { ...state, appointments };
+          setState(newAppointment);
+        })
+    };
   return (
     <main className="layout">
       <section className="sidebar">
@@ -77,7 +89,9 @@ setDay={setDay}
     {...appointment} 
     bookInterview={bookInterview} 
     interviewers={interviewers}
-    interview={interview}/>;
+    interview={interview}
+    removeInterview={removeInterview}
+    />;
 
   })}
   <Appointment key="last" time="5pm" />
