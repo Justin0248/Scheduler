@@ -9,6 +9,21 @@ const [state, setState] = useState({
   });
   const setDay = day => setState({ ...state, day });
   
+  const updateSpots = function (state) {
+    const arr = [];
+    for (let key of state.days) {
+      let count = 0;
+      for (let id of key.appointments) {
+        if (state.appointments[id].interview === null) count += 1;
+      }
+      key.spots = count;
+      arr.push(key);
+    }
+        setState({
+          ...state,
+          days: arr
+        });
+      };
   const bookInterview = function(id, interview) {
     const appointment = {
       ...state.appointments[id],
@@ -22,6 +37,7 @@ const [state, setState] = useState({
         .then(() => {
           const newAppointment = { ...state, appointments };
           setState(newAppointment);
+          updateSpots(newAppointment)
         })
     };
 
@@ -38,6 +54,7 @@ const [state, setState] = useState({
           .then(() => {
             const newAppointment = { ...state, appointments };
             setState(newAppointment);
+            updateSpots(newAppointment);
           })
       };
   
