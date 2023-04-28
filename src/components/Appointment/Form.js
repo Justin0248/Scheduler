@@ -14,16 +14,20 @@ setStudent('');
 const cancel = function () {
 reset();
 props.onCancel();
+setError('');
 }
 function validate() {
   if (student === "") {
     setError("Student name cannot be blank");
     return;
   }
+  
   else if (interviewer === null) {
     setError("Please select an interviewer");
     return;
   }
+
+  setError("");
   props.onSave(student, interviewer);
 }
     return (
@@ -49,7 +53,7 @@ function validate() {
   </section>
   <section className="appointment__card-right">
     <section className="appointment__actions">
-      <Button danger onClick={cancel}>Cancel</Button>
+      <Button danger onClick={cancel} >Cancel</Button>
       <Button confirm onClick={() => {if (validate()){props.onSave(student, interviewer);}}}>Save</Button>
     </section>
   </section>
