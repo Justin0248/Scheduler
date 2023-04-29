@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'axios';
 import { useState, useEffect} from 'react';
 const useApplicationData = function() {
 const [state, setState] = useState({
@@ -37,8 +37,9 @@ const [state, setState] = useState({
         .then(() => {
           const newAppointment = { ...state, appointments };
           setState(newAppointment);
-          updateSpots(newAppointment)
+          updateSpots(newAppointment);
         })
+        
     };
 
     const removeInterview = function(id)  {

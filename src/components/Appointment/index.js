@@ -6,7 +6,7 @@ import Show from './Show';
 import Form from './Form';
 import Status from './Status';
 import Confirm from './Confirm';
-import Error from './Error'
+import Error from './Error';
 import { useVisualMode } from 'hooks/useVisualMode';
 
 export default function Appointment(props) {
@@ -46,7 +46,7 @@ props.removeInterview(props.id)
 }
 
  return (
-    <article className="appointment">
+    <article className="appointment" data-testid="appointment">
         <Header time={props.time}/>
         {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
         {mode === SHOW && (

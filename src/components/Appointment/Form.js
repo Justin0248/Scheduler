@@ -49,12 +49,14 @@ function validate() {
      interviewers={props.interviewers}
      value={interviewer}
      onChange={(select) => setInterviewer(select)}
+     alt="Sylvia Palmer"
     />
   </section>
   <section className="appointment__card-right">
     <section className="appointment__actions">
       <Button danger onClick={cancel} >Cancel</Button>
-      <Button confirm onClick={() => {if (validate()){props.onSave(student, interviewer);}}}>Save</Button>
+      <Button 
+      confirm onClick={() => {if (validate()){props.onSave(student, interviewer);}}}>Save</Button>
     </section>
   </section>
 </main>
