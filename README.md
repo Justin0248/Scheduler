@@ -1,5 +1,5 @@
 # Interview Scheduler
-
+Interview Scheduler is a tool used to book appointments. It was made using react, and it lets you choose your own date, time, and interviewer, and stores the information in a database. 
 ## Setup
 
 Install dependencies with `npm install`.
